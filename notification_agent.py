@@ -7,7 +7,8 @@ from spade.message import Message
 class NotificationAgent(agent.Agent):
     class NotifyBehaviour(CyclicBehaviour):
         async def run(self):
-            msg = await self.receive(timeout=10)  
+            msg = await self.receive(timeout=60) 
+            print('----------------------------------------------------------------') 
             if msg:
                 deal = json.loads(msg.body)
                 game = deal["game"]
@@ -16,7 +17,10 @@ class NotificationAgent(agent.Agent):
                 
                 wishlist = {
                     "Cyberpunk 2077": 35.00,
-                    "Among Us": 5.00
+                    "Among Us": 5.00,
+                    "The Witcher 3": 15.00,
+                    "Fortnite": 0.00,
+                    "Stardew Valley": 20.00
                 }
                 
                 if game in wishlist and price <= wishlist[game]:
