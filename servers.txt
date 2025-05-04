@@ -1,0 +1,2 @@
+search_agent: search_agent@localhost
+notification_agent: notification_agent@localhost
