@@ -23,11 +23,22 @@ class SearchAgent(agent.Agent):
             relevant_deals = [deal for deal in mock_deals if deal["price"] < 40]
             print('----------------------------------------------------------------')
             for deal in relevant_deals:
-                msg = Message(to="notification_agent@localhost")
-                msg.set_metadata("performative", "inform")
-                msg.body = json.dumps(deal)
-                await self.send(msg)
+                body = json.dumps(deal)
+
+                # Send to NotificationAgent
+                msg1 = Message(to="notification_agent@localhost")  # Adjust domain
+                msg1.set_metadata("performative", "inform")
+                msg1.body = body
+                await self.send(msg1)
+
+                # Send to RecommendationAgent
+                msg2 = Message(to="recommendation_agent@localhost")
+                msg2.set_metadata("performative", "inform")
+                msg2.body = body
+                await self.send(msg2)
+
                 print(f"SearchAgent sent deal: {deal}")
+                await asyncio.sleep(1)
                 
     async def setup(self):
         search_behaviour = self.SearchBehaviour(period=60)
@@ -35,7 +46,7 @@ class SearchAgent(agent.Agent):
 
 async def main():
     search_agent = SearchAgent("search_agent@localhost", "password123")
-    await search_agent.start()
+    await search_agent.start(auto_register=False)
     print("Search agent started")
     await asyncio.sleep(10000)  
 
