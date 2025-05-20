@@ -51,7 +51,7 @@ class NotificationAgent(Agent):
         print("Notification Agent started")
         self.add_behaviour(NotifyBehaviour())
 
-# Example usage if running as main
+
 if __name__ == "__main__":
     target_prices = {
         "Cyberpunk 2077": 35.0,

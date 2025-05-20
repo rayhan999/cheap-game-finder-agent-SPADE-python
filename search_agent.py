@@ -25,13 +25,13 @@ class SearchAgent(agent.Agent):
             for deal in relevant_deals:
                 body = json.dumps(deal)
 
-                # Send to NotificationAgent
-                msg1 = Message(to="notification_agent@localhost")  # Adjust domain
+                
+                msg1 = Message(to="notification_agent@localhost") 
                 msg1.set_metadata("performative", "inform")
                 msg1.body = body
                 await self.send(msg1)
 
-                # Send to RecommendationAgent
+                
                 msg2 = Message(to="recommendation_agent@localhost")
                 msg2.set_metadata("performative", "inform")
                 msg2.body = body

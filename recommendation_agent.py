@@ -28,7 +28,7 @@ class RecommendationAgent(agent.Agent):
 
                 genre = genre_map.get(game)
                 if genre:
-                    # Recommend games in the same genre
+                    
                     similar_games = [g for g, g_genre in genre_map.items() if g_genre == genre and g != game]
                     if similar_games:
                         rec_msg = Message(to="notification_agent@localhost")
